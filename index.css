@@ -1,0 +1,110 @@
+html,
+body {
+    font-family: 'sans-serif';
+    margin: 0;
+    padding: 0;
+}
+
+.input-group {
+    margin: 10px 0px;
+}
+
+.input-group .has-error input {
+    border: 1px solid red;
+    color: red;
+    outline: red;
+}
+
+.error-msg {
+    font-style: 12px;
+    font-style: italic;
+    color: red;
+}
+
+.input-group input {
+    padding: 5px 8px;
+    margin: 3px 0px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #555
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.h-screen {
+    height: 100vh;
+}
+
+.flex {
+    display: flex;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.item-stretch {
+    align-items: stretch;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.flex-1 {
+    flex: 1 1 50px;
+}
+
+.btn-link {
+    font-size: 12px;
+    color: blue;
+    cursor: pointer;
+}
+
+.modal-container {
+    background-color: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.conversation-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5px;
+    margin: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.conversation-item:hover {
+    background-color: lightgray;
+}
+
+.conversation-item.active {
+    background-color: blue;
+    color: white;
+}
+
+.title-Bar {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ececec;
+    padding: 5px 10px;
+}
