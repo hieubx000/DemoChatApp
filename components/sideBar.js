@@ -7,9 +7,11 @@ class SideBar {
     $conversationList;
     $createConversationModal;
     setActiveConversation;
+    updateActiveConversation;
+    activeConversation;
     $listConversationItem;
 
-    constructor(setActiveConversation) {
+    constructor(setActiveConversation, updateActiveConversation) {
         this.$container = document.createElement("div");
         this.$container.style.width = "200px";
         this.$container.style.borderRight = "1px solid #ececec"
@@ -25,9 +27,13 @@ class SideBar {
 
         this.setActiveConversation = setActiveConversation;
 
+        this.updateActiveConversation = updateActiveConversation;
+
         this.$listConversationItem = [];
 
-        db.collection('conversations').onSnapshot(this.conversationListener)
+        db.collection('conversations')
+            .where("users", "array-contains", firebase.auth().currentUser.email)
+            .onSnapshot(this.conversationListener);
     }
 
     handleCreateConversation = () => {
@@ -40,20 +46,35 @@ class SideBar {
             const conversation = change.doc.data()
             const id = change.doc.id;
 
-            const $conversationItem = new ConversationItem(
-                id,
-                conversation.name,
-                conversation.users.length,
-                this.setActiveConversation
-            );
+            if (change.type === "added") {
+                const $conversationItem = new ConversationItem(
+                    id,
+                    conversation.name,
+                    conversation.users,
+                    this.setActiveConversation
+                );
 
-            this.$listConversationItem.push($conversationItem);
+                this.$listConversationItem.push($conversationItem);
 
-            this.$conversationList.appendChild($conversationItem.render());
+                this.$conversationList.appendChild($conversationItem.render());
+            } else if (change.type === "modified") {
+                const modifyingConversation = this.$listConversationItem.find(
+                    (item) => {
+                        return item.id === id;
+                    }
+                );
+                modifyingConversation.updateData(conversation.name, conversation.users);
+                if (id === this.activeConversation.id) {
+                    this.updateActiveConversation(conversation.name, conversation.users)
+                }
+            } else if (change.type === "removed") {
+
+            }
         });
     };
 
     setConversation = (conversation) => {
+        this.activeConversation = conversation;
         this.$listConversationItem.forEach(item => {
             if (item.id === conversation.id) {
                 item.setActive(true)

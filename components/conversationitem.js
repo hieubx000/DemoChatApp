@@ -1,17 +1,17 @@
 class ConversationItem {
     id;
     name;
-    noOfUser;
+    users;
 
     $container;
     $txtName;
     $txtNoOfUser
 
     onSelectConversation;
-    constructor(id, name, numberOfUser, onSelectConversation) {
+    constructor(id, name, users, onSelectConversation) {
         this.id = id;
         this.name = name;
-        this.noOfUser = numberOfUser;
+        this.users = users;
         this.onSelectConversation = onSelectConversation;
 
         this.$container = document.createElement("div");
@@ -22,13 +22,14 @@ class ConversationItem {
         this.$txtName.innerHTML = this.name;
 
         this.$txtNoOfUser = document.createElement("span");
-        this.$txtNoOfUser.innerHTML = "(" + this.noOfUser + ")";
+        this.$txtNoOfUser.innerHTML = "(" + this.users.length + ")";
     };
 
     handleClick = () => {
         this.onSelectConversation({
             id: this.id,
             name: this.name,
+            users: this.users
         });
     };
 
@@ -38,6 +39,14 @@ class ConversationItem {
         } else {
             this.$container.classList.remove("active");
         }
+    }
+
+    updateData(name, users) {
+        this.name = name;
+        this.users = users;
+
+        this.$txtName.innerHTML = name;
+        this.$txtNoOfUser.innerHTML = "(" + users.length + ")";
     }
 
     render() {

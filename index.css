@@ -55,6 +55,10 @@ body {
     flex-direction: column;
 }
 
+.justify-end {
+    justify-content: flex-end;
+}
+
 .flex-1 {
     flex: 1 1 50px;
 }
@@ -107,4 +111,28 @@ body {
     justify-content: space-between;
     border-bottom: 1px solid #ececec;
     padding: 5px 10px;
+}
+
+.message-item {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ececec;
+    background-color: lightgray;
+    margin: 5px;
+}
+
+.message-item>.sender {
+    font-size: 10px;
+    font-style: italic;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.message-item.my-message {
+    background-color: darkblue;
+    color: white;
+}
+
+.message-item.my-message>.sender {
+    color: lightgray;
 }
